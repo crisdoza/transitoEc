@@ -1,0 +1,117 @@
+# Primero instalacion de librerias en python
+
+# Actualizamos el sistema 
+sudo apt-get 
+
+# instalamos postgres
+sudo apt-get install postgresql
+
+# instalo una libreria 
+
+sudo apt-get install postgresql-server-dev-9.5
+
+# entro a psql
+sudo -u postgres psql
+
+# creacion de una base en postgres
+creat database prueba-base witg owner=post;
+
+psql - h localhost -U postgres prueba-base
+
+
+sudo apt-get install python-dev
+
+sudo apt-get install python-setuptools
+
+instalo 
+sudo easy_intall pip
+
+Con la pip instalamos las librerias
+
+
+Sql BASE DE DATOS
+https://www.dropbox.com/s/m14hbq5iavl40na/base-respaldo.sql?dl=0
+
+Crear base de datos base_transito
+
+Ingresar al directorio del sql
+Crear tablas e importar datos
+
+psql -U postgres -W -h localhost base_transito < base-respaldo.sql
+
+Entras a la base de datos
+psql -h localhost -U postgres base_transito
+
+
+\d Muestra tablas
+
+
+Virtualenv
+# crear un entorno
+# Crear proyecto
+
+# entramos al entorno
+#importar .sql a una base de datos
+psql -U postgres -W -h localhost base_transito < /home/salae/Escritorio/misentornos/DB/base-respaldo.sql 
+
+psql
+\password postgres #cambiamos clave de un usuario
+create database base_transito with owner=cristian;
+
+# entrar a la base
+psql -h localhost -U postgres base_transito 
+
+#ver tabla de una db
+\d 
+
+select * from vehiculos;
+
+dentro del entorno
+
+django-adimn startproject transito_ec
+cd transito_ec
+
+
+# Configurar el settings
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'base_transito',
+        'USER':'postgres',
+        'PASSWORD':'doza',
+        'HOST':'127.0.0.1',
+        'PORT':'5432',
+    }
+}
+
+# Integracion de la base de datos a mi modelo
+python manage.py inspectdb > mimodelo.py
+# crear app autos
+# poner datos de mimodelo en autos
+
+# agregar la app en el settings
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'autos',
+)
+
+python manage.py makemigrations autos
+
+# migrar datos
+manage.py migrate
+
+# createsuperuser
+python manager.py createsuperuser 
+
+# corremos 
+python manage.py runserver
+
+#entramos al link que nos da y ponemos user y contraseña y podemos ver la base 
+
